@@ -23,6 +23,7 @@
 #include "customGraphicEQGraph.h"
 #include "Preferences.h"
 #include <QPainter>
+#include <QPainterPath>
 #include <QMouseEvent>
 
 customGraphicEQGraph::customGraphicEQGraph (QWidget *parent) : poly(13), m_iDragNode(-1)
