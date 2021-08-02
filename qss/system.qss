@@ -1,0 +1,192 @@
+/****************************************************************************
+**
+** Copyright (C) 2007~2020 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
+** All rights reserved.
+** This file is part of "KATANA Fx FloorBoard".
+**
+** This program is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation; either version 2 of the License, or
+** (at your option) any later version.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+** GNU General Public License for more details.
+**
+** You should have received a copy of the GNU General Public License along
+** with this program; if not, write to the Free Software Foundation, Inc.,
+** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+**
+****************************************************************************/
+ 
+/* CUSTOM QTREEWIDGET STYLE */
+bankTreeList#banklist{
+}
+QTreeWidget#banklist {
+font-family: Arial;
+font-weight: bold;
+border-style: solid;
+border-radius: 10px;
+border-width: 1px;
+}
+QTreeWidget#banklist QHeaderView::section:only-one {
+font-family: Arial;
+font-weight: bold;
+border-style: solid;
+border-radius: 3px;
+border-width: 1px;
+}
+QTreeWidget#banklist::branch {
+margin: 0px;
+width: 9px;
+}
+
+/* CUSTOM DISPLAY STYLE */
+
+#display {
+background-color: rgb(255,255,255);
+border-style: solid;
+border-width: 10px;
+border-radius: 3px;
+border-color: rgb(150,150,150);
+}
+QLabel#bankMain {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+QLabel#bankSub {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+QLabel#nameMain {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+QLabel#nameSub {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+QLabel#valueMain {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+QLabel#valueSub {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+
+/* CUSTOM LABEL STYLE */
+
+QLabel#display {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+QLabel#title {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+QLabel#selectlabel {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+
+/* CUSTOM BUTTON STYLE */
+
+QLabel#button {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+
+QLabel#panelButton {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+
+/* CUSTOM GROUPBOX STYLE */
+
+QGroupBox#groupbox::title {
+subcontrol-origin: border;
+subcontrol-position: top left;
+position: relative;
+margin-left: 2px;
+margin-right: 2px;
+top: -7px;
+left: 5px;
+}
+QGroupBox#groupbox {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+border-width: 3px;
+border-style: solid;
+border-radius: 5px;
+margin-top: 8px;
+padding: 2px;
+background-color: rgba(255,255,255,50);
+}
+ 
+/* CUSTOM CONTROLLABEL STYLE */
+
+QLabel#customlabel {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+
+/* CUSTOM CONTROLKNOB STYLE  */
+
+QLineEdit#editdisplay {
+font-family: Arial;    
+font-weight: bold;
+color: rgb(0,0,0);
+border-style: solid;
+border-width: 1px;
+border-radius: 3px;
+border-color: rgb(0,0,0);
+padding: 0px;
+padding-left: 1px;
+padding-right: 1px;
+}
+
+/* CUSTOM TARGETKNOB STYLE  */
+
+QLineEdit#targetdisplay {
+font-family: Arial;
+font-weight: bold;
+color: rgb(255,255,255);
+border-style: solid;
+border-width: 1px;
+border-radius: 3px;
+border-color: rgb(0,0,0);
+padding: 0px;
+padding-left: 1px;
+padding-right: 1px;
+}
+
+/* CUSTOM CONTROLRENAME STYLE  */
+
+QLineEdit#catalogdisplay {
+font-family: Arial;
+font-weight: bold;
+color: rgb(0,0,0);
+border-style: solid;
+border-width: 1px;
+border-radius: 3px;
+border-color: rgb(0,0,0);
+padding: 0px;
+padding-left: 1px;
+padding-right: 1px;
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Preferences of the KATANA Fx FloorBoard application. -->
+<Preferences>
+	<General>
+		<Application version="20200503"/>
+		<Donate url="false"/>
+		<Files dir=""/>
+		<Loader active="false"/>
+		<Help url="help/help.html"/>
+		<Start count="1"/>
+	</General>
+	<Language>
+		<Locale select="0"/>
+	</Language>
+	<Midi>
+		<BulkFinish patch="4"/>
+		<BulkStart patch="1"/>
+		<DBug bool="false"/>
+		<Delay set="1"/>
+		<Device bool="true"/>
+		<Katana model="1"/>
+		<Midi delay="1"/>
+		<MidiIn device=""/>
+		<MidiOut device=""/>
+		<TxCh set="1"/>
+	</Midi>
+	<Scheme>
+		<Style select="1"/>
+		<Colour select="0"/>
+	</Scheme>
+	<Window>
+		<AutoScale bool="true"/>
+		<Collapsed width="1446" bool="true"/>
+		<Position x="10" y="10"/>
+		<Restore sidepanel="true" window="true"/>
+		<Scale ratio="1.30"/>
+		<Font ratio="1.10"/>
+		<Single bool="true"/>
+		<Size width="1445" height="620"/>
+		<Splash bool="true"/>
+	</Window>
+</Preferences>

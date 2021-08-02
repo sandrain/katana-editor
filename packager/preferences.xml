@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Preferences of the KATANAFxFloorBoard application. -->
+<Preferences>
+	<General>
+		<Application version="20200503"/>
+		<Donate url="false"/>
+		<Files dir=""/>
+		<Help url="help/help.html"/>
+		<Loader active="false"/>
+		<Start count="1"/>
+	</General>
+	<Language>
+		<Locale select="0"/>
+	</Language>
+	<Midi>
+		<BulkFinish patch="4"/>
+		<BulkStart patch="1"/>
+		<DBug bool="false"/>
+		<Delay set="1"/>
+		<Device bool="true"/>
+		<Katana model="1"/>
+		<Midi delay="1"/>
+		<MidiIn2 device=""/>
+		<MidiIn device=""/>
+		<MidiOut device=""/>
+		<TxCh set="1"/>
+	</Midi>
+	<Scheme>
+		<Colour select="0"/>
+		<Style select="1"/>
+	</Scheme>
+	<Window>
+		<AutoScale bool="true"/>
+		<Collapsed bool="true" width="1473"/>
+		<Font ratio="1.03"/>
+		<Position y="9" x="2"/>
+		<Restore sidepanel="true" window="true"/>
+		<Scale ratio="1.29"/>
+		<Single bool="true"/>
+		<Size height="645" width="1472"/>
+		<Splash bool="true"/>
+	</Window>
+</Preferences>

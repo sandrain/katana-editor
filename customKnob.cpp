@@ -1,0 +1,142 @@
+/****************************************************************************
+**
+** Copyright (C) 2007~2020 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
+** All rights reserved.
+** This file is part of "KATANA Fx FloorBoard".
+**
+** This program is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation; either version 2 of the License, or
+** (at your option) any later version.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+** GNU General Public License for more details.
+**
+** You should have received a copy of the GNU General Public License along
+** with this program; if not, write to the Free Software Foundation, Inc.,
+** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+**
+****************************************************************************/
+
+#include "customKnob.h"
+#include "MidiTable.h"
+#include "SysxIO.h"
+#include "Preferences.h"
+
+customKnob::customKnob(QWidget *parent, QString hex1, QString hex2, QString hex3, QString background, QString direction) : QWidget(parent)
+{
+    Preferences *preferences = Preferences::Instance();
+    bool ok;
+    const double ratio = preferences->getPreferences("Window", "Scale", "ratio").toDouble(&ok);
+
+    this->hex1 = hex1;
+    this->hex2 = hex2;
+    this->hex3 = hex3;
+    this->area = direction;
+    this->background = background;
+    MidiTable *midiTable = MidiTable::Instance();
+    if (direction.contains("System")){this->area = "System";} else {this->area = "Structure";};
+    int range = midiTable->getRange(this->area, hex1, hex2, hex3);
+    int rangeMin = midiTable->getRangeMinimum(this->area, hex1, hex2, hex3);
+
+    QPoint bgPos = QPoint((5*ratio)-(6*ratio), (4*ratio)-(7*ratio)); // Correction needed y-3.
+    QPoint knobPos = QPoint(5*ratio, 4*ratio); // Correction needed y+1 x-1.
+
+    QLabel *newBackGround = new QLabel(this);
+    if (background == "normal" || background == "System")
+    {
+        newBackGround->setPixmap(QPixmap(":/images/knobbgn.png").scaled(49*ratio,50*ratio, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    }
+    else if (background == "turbo")
+    {
+        newBackGround->setPixmap(QPixmap(":/images/knobbgt.png").scaled(49*ratio,50*ratio, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    }
+    else if (background == "slider")
+    {
+        newBackGround->setPixmap(QPixmap(":/images/slider_knobbg.png").scaled(49*ratio,50*ratio, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    }
+    else if (background.contains("geq_slider"))
+    {
+        bgPos = QPoint(1*ratio, 1*ratio); // Correction needed y-3.
+        knobPos = QPoint(1*ratio, 10*ratio); // Correction needed y+1 x-1.
+        newBackGround->setPixmap(QPixmap(":/images/geq_slider_bg.png").scaled(1*ratio, 1*ratio, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    }
+    else
+    {
+        newBackGround->setPixmap(QPixmap(":/images/knobbg.png").scaled(49*ratio,50*ratio, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    };
+    newBackGround->move(bgPos);
+    QString imagePath_geq_slider(":/images/geq_slider_knob.png");
+    QString imagePath_slider(":/images/slider_knob.png");
+    QString imagePath_knob(":/images/knob.png");
+
+    unsigned int sliderImageRange = 49;//63;
+    unsigned int knobImageRange = 100;
+    QString imagePath_geq_bg(":/images/geq_slider_bg.png");
+
+    if (background.contains("geq_slider")) {
+        this->slide = new customSlider(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath_geq_bg, imagePath_geq_slider);
+    } else if (background == "slider") {
+        this->knob = new customDial(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath_slider, sliderImageRange);
+    } else {this->knob = new customDial(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath_knob, knobImageRange);};
+    this->setFixedSize(newBackGround->pixmap()->size() - QSize(0, 4)); // Correction needed h-4.
+
+    QObject::connect(this, SIGNAL( updateSignal() ),
+                     this->parent(), SIGNAL( updateSignal() ));
+
+    QObject::connect(this, SIGNAL( updateDisplay(QString) ),
+                     this->parent(), SIGNAL( updateDisplay(QString) ));
+}
+
+void customKnob::paintEvent(QPaintEvent *)
+{
+    /*DRAWS RED BACKGROUND FOR DEBUGGING PURPOSE */
+    /*QPixmap image(":images/dragbar.png");
+
+    QRectF target(0.0, 0.0, this->width(), this->height());
+    QRectF source(0.0, 0.0, this->width(), this->height());
+
+    QPainter painter(this);
+    painter.drawPixmap(target, image, source);*/
+}
+
+void customKnob::setValue(int value)
+{    
+    if (background.contains("geq_slider")){ this->slide->setValue(value); }
+    else{ this->knob->setValue(value); };
+}
+
+void customKnob::valueChanged(int value, QString hex1, QString hex2, QString hex3)
+{
+    MidiTable *midiTable = MidiTable::Instance();
+
+    QString valueHex = QString::number(value, 16).toUpper();
+    if(valueHex.length() < 2) valueHex.prepend("0");
+
+    SysxIO *sysxIO = SysxIO::Instance(); bool ok;
+    if(midiTable->isData(this->area, hex1, hex2, hex3))
+    {
+        int maxRange = QString("7F").toInt(&ok, 16) + 1;
+        int value = valueHex.toInt(&ok, 16);
+        int dif = value/maxRange;
+        QString valueHex1 = QString::number(dif, 16).toUpper();
+        if(valueHex1.length() < 2) valueHex1.prepend("0");
+        QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
+        if(valueHex2.length() < 2) valueHex2.prepend("0");
+
+        sysxIO->setFileSource(this->area, hex1, hex2, hex3, valueHex1, valueHex2);
+    }
+    else
+    {
+
+        sysxIO->setFileSource(this->area, hex1, hex2, hex3, valueHex);
+    };
+
+    QString valueStr = midiTable->getValue(this->area, hex1, hex2, hex3, valueHex);
+
+    emit updateDisplay(valueStr);
+    emit updateSignal();
+}
