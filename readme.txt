@@ -1,3 +1,8 @@
+This software is written by Colin Willcocks, who wrote the original readme as
+follows:
+
+==
+
 
 KATANAFxFloorBoard Copyright (C) 2007~2015 Colin Willcocks (gumtownbassman@yahoo.com).
  All rights reserved.
@@ -117,6 +122,12 @@ WIN:
 OS/X:
 
 LINUX:
+
+NOTE: You need QT to build this.
+
+$ qmake		# this will generate the Makefile
+$ make -j16
+$ packager/KATANAFxFloorBoard	# the final executable
 
 
 -------------------------------------------------------------------------------
